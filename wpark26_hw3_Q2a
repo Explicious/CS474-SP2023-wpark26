@@ -1,0 +1,8 @@
+(declare-const l1 Int)
+(declare-const l2 Int)
+(declare-const u1 Int)
+(declare-const u2 Int)
+
+(assert (not (exists ((z Int)) (not ( or (not (or (or (< l1 z) (< l2 z)) (or (< z u1) (< z u2))))
+ (exists ((w Int)) (or (or (or (< l1 w) (< l2 w)) (or (< w u1) (< w u2))) (not (= w z)))))))))
+(apply qe)
