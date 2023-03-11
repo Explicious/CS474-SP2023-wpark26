@@ -13,8 +13,8 @@
 (define-fun legal ((xl Int) (xu Int)) Bool
     (< xl xu))
 
-(assert (and (and (not (edge al au cl cu)) (not (edge dl du bl bu))) (and (and (and (legal al au) (legal bl bu)) (and (legal cl cu) (legal dl du))) 
-(and (and (edge al au bl bu) (edge cl cu bl bu)) (and (edge cl cu dl du) (edge al au dl du))))))
+(assert (not ( and (and (not (edge al au cl cu)) (not (edge dl du bl bu))) (and (and (and (legal al au) (legal bl bu)) (and (legal cl cu) (legal dl du))) 
+(and (and (edge al au bl bu) (edge cl cu bl bu)) (and (edge cl cu dl du) (edge al au dl du)))))))
 
 (check-sat)
 (get-model)
