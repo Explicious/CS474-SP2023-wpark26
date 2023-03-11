@@ -1,20 +1,33 @@
-(declare-const al Int)
-(declare-const au Int)
-(declare-const bl Int)
-(declare-const bu Int)
-(declare-const cl Int)
-(declare-const cu Int)
-(declare-const dl Int)
-(declare-const du Int)
-
 (define-fun edge ((xl Int) (xu Int) (yl Int) (yu Int)) Bool 
     (exists ((z Int)) (and (and (< z xu) (< z yu)) (and (< xl z) (< yl z)))) )
 
 (define-fun legal ((xl Int) (xu Int)) Bool
     (< xl xu))
 
-(assert (not ( and (and (not (edge al au cl cu)) (not (edge dl du bl bu))) (and (and (and (legal al au) (legal bl bu)) (and (legal cl cu) (legal dl du))) 
-(and (and (edge al au bl bu) (edge cl cu bl bu)) (and (edge cl cu dl du) (edge al au dl du)))))))
+(define-fun conjecture ((al Int) (au Int) (cl Int) (cu Int) (dl Int) (du Int) (bl Int) (bu Int)) Bool
+ ( and (and (not (edge al au cl cu)) (not (edge dl du bl bu))) (and (and (and (legal al au) (legal bl bu)) (and (legal cl cu) (legal dl du))) 
+(and (and (edge al au bl bu) (edge cl cu bl bu)) (and (edge cl cu dl du) (edge al au dl du)))))
+)
+
+(define-fun silly_valid () Bool
+(exists ((x1 Int)) (
+    exists ((x2 Int)) (
+        exists ((x3 Int)) (
+            exists ((x4 Int)) (
+                exists ((x5 Int)) (
+                    exists ((x6 Int)) (
+                        exists ((x7 Int)) (
+                            exists ((x8 Int)) (conjecture x1 x2 x3 x4 x5 x6 x7 x8)
+                        )
+                    )
+                )
+            )
+        )
+    )
+))
+)
+
+(assert (not silly_valid))
 
 (check-sat)
 (get-model)
