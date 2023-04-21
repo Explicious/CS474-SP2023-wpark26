@@ -1,0 +1,15 @@
+(declare-sort A)
+(declare-fun f ((A) (A)) A)
+(declare-const c A)
+(declare-const e A)
+
+(define-fun formula1 () Bool
+(and (= (f c e) c) (= (f e c) c))
+)
+
+(define-fun formula2 () Bool
+(and (and (= (f c e) e) (= (f e c) e)) (not (= e c)))
+)
+
+(assert (and formula1 formula2))
+(check-sat)
