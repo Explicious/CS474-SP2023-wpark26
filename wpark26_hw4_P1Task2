@@ -1,0 +1,24 @@
+(declare-const rstar Real)
+(declare-const sstar Real)
+(declare-const thingo Real)
+(declare-const thingt Real)
+
+(define-fun prob ((x Real)) Bool 
+    (and (or (< x 1.0) (= x 1.0)) (or (< 0.0 x) (= x 0.0))))
+
+(define-fun EPR ((r Real) (s Real)) Real 
+    (+ (+ (* 90.0 (* r s)) (* 20.0 (* r (- 1 s)))) (+ (* 30.0 (* (- 1 r) s)) (* 60.0 (* (- 1 r) (- 1 s))))))
+
+(define-fun EPS ((r Real) (s Real)) Real 
+    (+ (+ (* 10.0 (* r s)) (* 80.0 (* r (- 1 s)))) (+ (* 70.0 (* (- 1 r) s)) (* 40.0 (* (- 1 r) (- 1 s))))))
+
+(define-fun phi ((r Real) (s Real)) Bool
+    (and (and (prob r) (prob s)) (and (not (exists ((rprime Real)) (and (> (EPR rprime s) (EPR r s)) and (prob rprime)) )) (not (exists ((sprime Real)) (and (> (EPS r sprime) (EPS r s)) and (prob sprime)) )))
+)) 
+
+(assert ( phi rstar sstar))
+(assert (= thingo (EPR rstar sstar)))
+(assert (= thingt (EPS rstar sstar)))
+(check-sat)
+(get-model)
+
