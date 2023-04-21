@@ -1,0 +1,48 @@
+(declare-sort A)
+(declare-fun f ((A) (A)) A)
+(declare-fun g ((A)) A)
+(declare-const c A)
+(declare-const d A)
+(declare-const e A)
+
+(define-fun axiom1 ((x_1 A) (x_2 A) (x_3 A)) Bool
+(= (f (f x_1 x_2) x_3) (f x_1 (f x_2 x_3)))
+)
+
+(define-fun axiom2 ((x_1 A)) Bool
+(and (= (f x_1 e) x_1) (= (f e x_1) x_1))
+)
+
+(define-fun axiom3 ((x_1 A)) Bool
+(and (= (f x_1 (g x_1)) e) (= (f (g x_1) x_1) e))
+)
+
+(define-fun formula2 () Bool
+(and (and (= (f c d) e) (= (f d c) e)) (not (= d (g c))))
+)
+
+(define-fun axiom1short1 () Bool
+    (and (axiom1 c c c) (axiom1 c c d) (axiom1 c c e) (axiom1 c d c) 
+    (axiom1 c d e) (axiom1 c e c) (axiom1 c e d) 
+    (axiom1 c d d)  (axiom1 c e e))
+)
+
+(define-fun axiom1short2 () Bool
+    (and (axiom1 d c c) (axiom1 d c d) (axiom1 d c e) (axiom1 d d c) 
+    (axiom1 d d e) (axiom1 d e c) (axiom1 d e d) 
+    (axiom1 d d d)  (axiom1 d e e))
+)
+
+(define-fun axiom1short3 () Bool
+    (and (axiom1 e c c) (axiom1 e c d) (axiom1 e c e) (axiom1 e d c) 
+    (axiom1 e d e) (axiom1 e e c) (axiom1 e e d) 
+    (axiom1 e d d)  (axiom1 e e e))
+)
+
+(assert (and formula2 
+(and (and (axiom2 c) (axiom2 d)) (axiom2 e))
+(and (and (and (axiom3 c) (axiom3 d)) (axiom3 e)) 
+    (and axiom1short2 axiom1short1 axiom1short3)
+)))
+(check-sat)
+(get-model)
