@@ -1,6 +1,7 @@
 ## Prompt example A.1
 ### GPT-3.5
 https://chat.openai.com/share/0f13cc50-01d6-4917-95a5-0be25da40b61
+
 https://chat.openai.com/share/9dd4f66b-fc67-4593-8a95-cb44304c6ba4
 ### GPT-4
 https://chat.openai.com/share/efc62623-d2c3-43ab-8d6e-64cc7c4073c1
